@@ -35,12 +35,23 @@ class Element {
 	 */
 	private $content;
 	
+	/**
+	 * Magic Function
+	 */
 	public function __construct() {
 		$this->content = array();
 		$this->attribute = array();
 		$this->single = array();
 		
 		$this->index = -1;
+	}
+	
+	public function __toString() {
+		return $this->result();
+	}
+	
+	public function __invoke($tag, $attribute = NULL, $content = NULL) {
+		return $this->tag($tag)->set($attribute)->add($content);
 	}
 	
 	/**
@@ -51,9 +62,9 @@ class Element {
 	private function attributeEncode() {
 		$attribute = '';
 		
-		foreach((array)$this->attribute[$this->index] as $key => $value) {
-			$attribute .= sprintf('%s="%s" ', $key, $value);
-		}
+		foreach((array)$this->attribute[$this->index] as $key => $value)
+			if('' !== $value && NULL !== $value)
+				$attribute .= sprintf('%s="%s" ', $key, $value);
 		
 		return trim($attribute);
 	}
@@ -75,12 +86,25 @@ class Element {
 		return $this;
 	}
 	
+	// extend tag function
+	public function a($href = NULL, $target = NULL) {
+		return $this->tag('a')->set(array(
+			'href' => $href,
+			'target' => $target
+		));
+	}
+	
+	// extend tag function
+	public function img($src = NULL) {
+		return $this->tag('img')->set('src', $src);
+	}
+	
 	/**
 	 * Set attributes
 	 * 
 	 * @param string, string or @param array
 	 * @return object
-	 */
+	 */	 
 	public function set() {
 		$args = func_get_args();
 		
@@ -90,6 +114,16 @@ class Element {
 			$this->attribute[$this->index][$args[0]] = $args[1];
 
 		return $this;
+	}
+	
+	// extend set function
+	public function id($id = NULL) {
+		return $this->set('id', $id);
+	}
+	
+	// extend set function
+	public function disable() {
+		return $this->set('disabled', 'disabled');
 	}
 	
 	/**
@@ -124,10 +158,6 @@ class Element {
 	 * 
 	 * @return string
 	 */
-	public function __toString() {
-		return $this->result();
-	}
-	 
 	public function result() {
 		if(!$this->single[$this->index]) {
 			if(count($this->attribute[$this->index]) > 0)
