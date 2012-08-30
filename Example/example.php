@@ -22,9 +22,9 @@ echo $e->tag('div')."\n";
 echo $e->tag('span')->add('Hello world')."\n";
 
 // create tag img
-// if tag without endtag then use single
-// <img src="#" />
-echo $e->tag('img')->set('src', '#')->single()."\n";
+// if tag without endtag then use function single()
+// <img src="/path/to/img" />
+echo $e->tag('img')->set('src', '/path/to/img')->single()."\n";
 
 // create tag a with some attribute
 // <a href="http://scar.simcz.tw" target="_blank">ScarShow</a>
@@ -34,6 +34,7 @@ echo $e->tag('a')->set(array(
 ))->add('ScarShow')."\n";
 
 // create div with some content
+// if you want to get element result then use function result() and at the last
 // <div id="main"><span>Hello, My blog is </span><a href="http://scar.simcz.tw" target="_blank">ScarShow</a></div>
 echo $e->tag('div')->set('id', 'main')->add(
 	'Hi, My blog is ',
