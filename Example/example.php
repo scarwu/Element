@@ -42,14 +42,14 @@ echo $_->tag('div')->set('id', 'main')->add(
 		'href' => 'http://scar.simcz.tw',
 		'target' => '_blank'
 	))->add('ScarShow')->result()
-);
+)."\n";
 
 /**
  * Simple Function
  */
 	
-// <div></div>
-echo $_('div')."\n";
+// <div id="main"></div>
+echo $_('div')->id('main')."\n";
 
 // <img src="/path/to/img" />
 echo $_('img', array('src' => '/path/to/img'))->single()."\n";

@@ -178,13 +178,11 @@ class Element {
 			$result .= " {$this->attributeEncode()}";
 		
 		if(!$this->single[$this->index])
-			$result .= ">{$this->content[$this->index]}</{$this->tag[$this->index]}>";
-		else {
-			if($this->slash[$this->index])
-				$result .= ' /';
+			$result .= ">{$this->content[$this->index]}</{$this->tag[$this->index]}";
+		elseif($this->slash[$this->index])
+			$result .= ' /';
 			
-			$result .= '>';
-		}
+		$result .= '>';
 		
 		// unset
 		unset($this->content[$this->index]);
