@@ -41,7 +41,7 @@ HTML Generator
 		'target' => '_blank'
 	))->add('ScarShow');
 	
-#### Create div with some content
+#### Create tag div with some content
 
 	// if you want to get element result then use function result() and at the last
 	// <div id="main"><span>Hello, My blog is </span><a href="http://scar.simcz.tw" target="_blank">ScarShow</a></div>

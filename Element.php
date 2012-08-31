@@ -187,6 +187,7 @@ class Element {
 		// unset
 		unset($this->content[$this->index]);
 		unset($this->single[$this->index]);
+		unset($this->slash[$this->index]);
 		unset($this->attribute[$this->index]);
 		unset($this->tag[$this->index]);
 		
