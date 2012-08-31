@@ -33,6 +33,11 @@ class Element {
 	/**
 	 * @var array
 	 */
+	private $slash;
+	
+	/**
+	 * @var array
+	 */
 	private $content;
 	
 	/**
@@ -80,6 +85,7 @@ class Element {
 		
 		$this->content[$this->index] = '';
 		$this->single[$this->index] = FALSE;
+		$this->slash[$this->index] = TRUE;
 		$this->attribute[$this->index] = array();
 		$this->tag[$this->index] = $tag;
 		
@@ -87,16 +93,16 @@ class Element {
 	}
 	
 	// extend tag function
-	public function a($href = NULL, $target = NULL) {
+	public function a($href = NULL, $target = NULL, $content) {
 		return $this->tag('a')->set(array(
 			'href' => $href,
 			'target' => $target
-		));
+		))->add($content);
 	}
 	
 	// extend tag function
 	public function img($src = NULL) {
-		return $this->tag('img')->set('src', $src);
+		return $this->tag('img')->set('src', $src)->single();
 	}
 	
 	/**
@@ -136,8 +142,14 @@ class Element {
 	public function add() {
 		$args = func_get_args();
 		
-		foreach((array)$args as $value)
-			$this->content[$this->index] .= $value;
+		if(1 == count($args) && 'array' == gettype($args[0])) {
+			foreach((array)$args[0] as $value)
+				$this->content[$this->index] .= $value;
+		}
+		else {
+			foreach((array)$args as $value)
+				$this->content[$this->index] .= $value;
+		}
 		
 		return $this;
 	}
@@ -147,8 +159,9 @@ class Element {
 	 * 
 	 * @return object
 	 */
-	public function single() {
+	public function single($slash = TRUE) {
 		$this->single[$this->index] = TRUE;
+		$this->slash[$this->index] = $slash;
 		
 		return $this;
 	}
@@ -159,28 +172,18 @@ class Element {
 	 * @return string
 	 */
 	public function result() {
-		if(!$this->single[$this->index]) {
-			if(count($this->attribute[$this->index]) > 0)
-				$result = sprintf(
-					'<%s %s>%s</%s>',
-					$this->tag[$this->index],
-					$this->attributeEncode(),
-					$this->content[$this->index],
-					$this->tag[$this->index]
-				);
-			else
-				$result = sprintf(
-					'<%s>%s</%s>',
-					$this->tag[$this->index],
-					$this->content[$this->index],
-					$this->tag[$this->index]
-				);
-		}
+		$result = "<{$this->tag[$this->index]}";
+		
+		if(count($this->attribute[$this->index]) > 0)
+			$result .= " {$this->attributeEncode()}";
+		
+		if(!$this->single[$this->index])
+			$result .= ">{$this->content[$this->index]}</{$this->tag[$this->index]}>";
 		else {
-			if(count($this->attribute[$this->index]) > 0)
-				$result = sprintf( '<%s %s />', $this->tag[$this->index], $this->attributeEncode());
-			else
-				$result = sprintf('<%s />', $this->tag[$this->index]);
+			if($this->slash[$this->index])
+				$result .= ' /';
+			
+			$result .= '>';
 		}
 		
 		// unset
