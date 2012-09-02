@@ -34,14 +34,14 @@ echo $_->tag('a')->set(array(
 ))->add('ScarShow')."\n";
 
 // create div with some content
-// if you want to get element result then use function result() and at the last
+// if you want to get element result then use function str() and at the last
 // <div id="main"><span>Hello, My blog is </span><a href="http://scar.simcz.tw" target="_blank">ScarShow</a></div>
 echo $_->tag('div')->set('id', 'main')->add(
 	'Hi, My blog is ',
 	$_->tag('a')->set(array(
 		'href' => 'http://scar.simcz.tw',
 		'target' => '_blank'
-	))->add('ScarShow')->result()
+	))->add('ScarShow')->str()
 )."\n";
 
 /**

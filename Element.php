@@ -52,7 +52,7 @@ class Element {
 	}
 	
 	public function __toString() {
-		return $this->result();
+		return $this->str();
 	}
 	
 	public function __invoke($tag, $attribute = NULL, $content = NULL) {
@@ -171,7 +171,7 @@ class Element {
 	 * 
 	 * @return string
 	 */
-	public function result() {
+	public function str() {
 		$result = "<{$this->tag[$this->index]}";
 		
 		if(count($this->attribute[$this->index]) > 0)
