@@ -1,9 +1,8 @@
-Element
-=======
-
-### Description
+# Element
 
 HTML Generator
+
+## Getting Started
 
 ### Requirement
 
