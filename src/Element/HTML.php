@@ -1,6 +1,6 @@
 <?php
 /**
- * Element
+ * HTML
  *
  * @package     Element
  * @author      ScarWu
@@ -8,7 +8,9 @@
  * @link        http://github.com/scarwu/Element
  */
 
-class Element
+namespace Element;
+
+class HTML
 {
     /**
      * @var integer

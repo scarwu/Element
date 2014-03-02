@@ -8,10 +8,12 @@
  * @link		http://github.com/scarwu/Element
  */
 
-require_once realpath(__DIR__ . '/../src/Element.php');
+require_once realpath(__DIR__ . '/../src/Element/HTML.php');
 
-// New Element
-$_ = new Element();
+use Element\HTML;
+
+// New HTML
+$_ = new HTML();
 
 // create tag div
 // <div></div>
