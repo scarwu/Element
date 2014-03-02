@@ -1,0 +1,22 @@
+{
+    "name": "scarwu\/element",
+    "homepage": "https:\/\/github.com\/scarwu\/Element",
+    "description": "HTML Generator",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Scar Wu",
+            "email": "xneriscool@gmail.com",
+            "homepage": "http:\/\/scar.simcz.tw"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Element": "src"
+        }
+    },
+    "version": "0.1.1"
+}
